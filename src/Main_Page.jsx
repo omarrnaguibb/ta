@@ -4,6 +4,7 @@ import axios from "axios";
 import { io } from "socket.io-client";
 import { IoMdRefresh } from "react-icons/io";
 import { IoMdCloseCircle } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 const Main_Page = () => {
   const [loading, setLoading] = useState(false);
   const socket = io(serverRoute);
@@ -13,12 +14,12 @@ const Main_Page = () => {
   const [Users, setUsers] = useState([]);
   const [user, setUser] = useState({ data: {}, active: false });
   const [userOtp, setUserOtp] = useState(null);
-
+  const navigate = useNavigate();
   const uniqueNum = () =>
     Math.floor(Math.random() * (10000000 - 999999 + 1)) + 999999;
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) window.location.href = "/login";
+    if (!localStorage.getItem("token")) return navigate("/login");
   }, []);
 
   const getUsers = async () => {
@@ -600,7 +601,7 @@ const Main_Page = () => {
                           />
                         </div>
                       )}
-                      
+
                       <div className="w-4/5 flex col-span-2 md:col-span-1 justify-between gap-x-3  p-2 text-xs">
                         <button
                           className="bg-green-500 w-1/2 p-2 rounded-lg"

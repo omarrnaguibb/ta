@@ -1,12 +1,13 @@
 // src/Login.js
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,7 +18,7 @@ export default function Login() {
       // Generate a random token string (no real JWT)
       const randomToken = Math.random().toString(36).slice(2);
       localStorage.setItem("token", randomToken);
-      window.location.href = "/";
+      return navigate('/')
     } else {
       setErrorMsg("Invalid username or password");
     }
